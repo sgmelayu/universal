@@ -13,7 +13,7 @@ http_archive(
 )
 
 # Setup the NodeJS toolchain
-load("@build_bazel_rules_nodejs//:defs.bzl", "check_bazel_version", "node_repositories", "yarn_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "node_repositories", "yarn_install")
 
 node_repositories()
 
