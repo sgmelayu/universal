@@ -1,7 +1,7 @@
 """Re-export of some bazel rules with repository-wide defaults."""
 
 load("@npm_angular_bazel//:index.bzl", _ng_module = "ng_module", _ng_package = "ng_package")
-load("@build_bazel_rules_nodejs//:index.bzl", _npm_package = "npm_package")
+load("@build_bazel_rules_nodejs//:index.bzl", _pkg_npm = "pkg_npm")
 load("@npm_bazel_jasmine//:index.bzl", _jasmine_node_test = "jasmine_node_test")
 load(
     "@npm_bazel_typescript//:index.bzl",
@@ -140,8 +140,8 @@ def ng_package(globals = {}, **kwargs):
 
     _ng_package(globals = globals, replacements = PKG_GROUP_REPLACEMENTS, **kwargs)
 
-def npm_package(name, replacements = {}, **kwargs):
-    _npm_package(
+def pkg_npm(name, replacements = {}, **kwargs):
+    _pkg_npm(
         name = name,
         replacements = dict(replacements, **PKG_GROUP_REPLACEMENTS),
         **kwargs
