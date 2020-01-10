@@ -58,7 +58,7 @@
     "@bazel/jasmine": "^0.42.0",
     "@bazel/karma": "^0.42.0",
     "@bazel/typescript": "^0.42.0",
-    "@hapi/hapi": "^18.4.0",
+    "@hapi/hapi": "^19.0.0",
     "@schematics/angular": "^9.0.0-rc.7",
     "@types/browser-sync": "^2.26.1",
     "@types/express": "4.17.1",
