@@ -28,6 +28,12 @@
     "http-proxy-middleware": "^1.0.0",
     "rxjs": "RXJS_VERSION",
     "tree-kill": "^1.2.1",
-    "guess-parser": "^0.4.12"
-  }
+    "guess-parser": "^0.4.12",
+    "snyk": "^1.316.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
