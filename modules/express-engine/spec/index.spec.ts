@@ -1,23 +1,33 @@
-import 'zone.js';
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
+// eslint-disable-next-line import/no-unassigned-import
+import 'zone.js';
+// eslint-disable-next-line import/no-unassigned-import
+import '@angular/compiler';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 
-import { SOME_TOKEN } from '../testing/mock.server.module';
 import {
-  MockServerModuleNgFactory,
-  RequestServerModuleNgFactory,
-  ResponseServerModuleNgFactory,
-  TokenServerModuleNgFactory,
-} from '../testing/mock.server.module.ngfactory';
+  MockServerModule,
+  RequestServerModule,
+  ResponseServerModule,
+  SOME_TOKEN,
+  TokenServerModule,
+} from './mock.server.module';
 
 describe('test runner', () => {
   it('should render a basic template', (done) => {
-    ngExpressEngine({ bootstrap: MockServerModuleNgFactory })(
-      (null as any) as string,
+    ngExpressEngine({ bootstrap: MockServerModule })(
+      null as any as string,
       {
         req: { get: () => 'localhost' } as any,
         // TODO this shouldn't be required
-        bootstrap: MockServerModuleNgFactory,
+        bootstrap: MockServerModule,
         document: '<root></root>',
       },
       (err, html) => {
@@ -32,7 +42,7 @@ describe('test runner', () => {
 
   it('Should throw when no module is passed', () => {
     ngExpressEngine({ bootstrap: null as any })(
-      (null as any) as string,
+      null as any as string,
       {
         req: {} as any,
         bootstrap: null as any,
@@ -45,15 +55,15 @@ describe('test runner', () => {
   });
 
   it('should be able to inject REQUEST token', (done) => {
-    ngExpressEngine({ bootstrap: RequestServerModuleNgFactory })(
-      (null as any) as string,
+    ngExpressEngine({ bootstrap: RequestServerModule })(
+      null as any as string,
       {
         req: {
           get: () => 'localhost',
           url: 'http://localhost:4200',
         } as any,
         // TODO this shouldn't be required
-        bootstrap: RequestServerModuleNgFactory,
+        bootstrap: RequestServerModule,
         document: '<root></root>',
       },
       (err, html) => {
@@ -68,8 +78,8 @@ describe('test runner', () => {
 
   it('should be able to inject RESPONSE token', (done) => {
     const someStatusCode = 400;
-    ngExpressEngine({ bootstrap: ResponseServerModuleNgFactory })(
-      (null as any) as string,
+    ngExpressEngine({ bootstrap: ResponseServerModule })(
+      null as any as string,
       {
         req: {
           get: () => 'localhost',
@@ -78,7 +88,7 @@ describe('test runner', () => {
           },
         } as any,
         // TODO this shouldn't be required
-        bootstrap: ResponseServerModuleNgFactory,
+        bootstrap: ResponseServerModule,
         document: '<root></root>',
       },
       (err, html) => {
@@ -94,17 +104,17 @@ describe('test runner', () => {
   it('should be able to inject some token', (done) => {
     const someValue = { message: 'value' + new Date() };
     ngExpressEngine({
-      bootstrap: TokenServerModuleNgFactory,
+      bootstrap: TokenServerModule,
       providers: [{ provide: SOME_TOKEN, useValue: someValue }],
     })(
-      (null as any) as string,
+      null as any as string,
       {
         req: {
           get: () => 'localhost',
           url: 'http://localhost:4200',
         } as any,
         // TODO this shouldn't be required
-        bootstrap: TokenServerModuleNgFactory,
+        bootstrap: TokenServerModule,
         document: '<root></root>',
       },
       (err, html) => {

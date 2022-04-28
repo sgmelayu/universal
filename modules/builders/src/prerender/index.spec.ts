@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -162,7 +162,11 @@ describe('Prerender Builder', () => {
     await run.stop();
   });
 
-  it('should generate service-worker', async () => {
+  // TODO: currently the `@angular/service-worker/config` package is
+  // always resolved from the workspace root which under Bazel is not present.
+  // https://github.com/angular/angular-cli/blob/c44f1229739567d19e2a282fc38efb419381eba7/packages/angular_devkit/build_angular/src/utils/service-worker.ts#L76-L85
+  // https://github.com/angular/angular-cli/pull/21895
+  xit('should generate service-worker', async () => {
     const manifest = {
       index: '/index.html',
       assetGroups: [
@@ -206,7 +210,7 @@ describe('Prerender Builder', () => {
     );
 
     expect(content).toMatch(
-      /<style>p{color:red;}<\/style><link rel="stylesheet" href="styles\.\w+\.css" media="print" onload="this.media='all'">/,
+      /<style>p{color:red}<\/style><link rel="stylesheet" href="styles\.\w+\.css" media="print" onload="this.media='all'">/,
     );
     await run.stop();
   });

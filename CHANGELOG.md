@@ -1,186 +1,176 @@
-# Change Log (DEPRECATED)
+<a name="13.1.0"></a>
 
-### SEE https://github.com/angular/universal/releases FOR RELEASE BASED CHANGELOG
+# 13.1.0 (2022-03-21)
 
-<a name="8.1.1"></a>
+### @nguniversal/common
 
-## [8.1.1](https://github.com/angular/universal/compare/v8.1.0...v8.1.1) (2019-07-04)
+| Commit                                                                                           | Type | Description                    |
+| ------------------------------------------------------------------------------------------------ | ---- | ------------------------------ |
+| [891cbbd6](https://github.com/angular/universal/commit/891cbbd65ab2339b560622a4cdc1e1ae131b42dd) | feat | add support for TypeScript 4.6 |
 
-### Bug Fixes
+## Special Thanks
 
-- **schematics:** ng add removes options from browser builder ([#1190](https://github.com/angular/universal/issues/1190)) ([10d68fc](https://github.com/angular/universal/commit/10d68fc)), closes [#1189](https://github.com/angular/universal/issues/1189) [#1189](https://github.com/angular/universal/issues/1189)
+Alan Agius and Joey Perrott
 
-<a name="8.1.0"></a>
+<!-- CHANGELOG SPLIT MARKER -->
 
-# [8.1.0](https://github.com/angular/universal/compare/v8.0.0-rc.1...v8.1.0) (2019-07-03)
+<a name="13.1.0-next.1"></a>
 
-### Bug Fixes
+# 13.1.0-next.1 (2022-01-18)
 
-- **express-engine:** add bundleDependencies and lazy-loading fixes ([#1167](https://github.com/angular/universal/issues/1167)) ([d8be7af](https://github.com/angular/universal/commit/d8be7af))
-- **hapi-engine:** add bundleDependencies and lazy-loading fixes ([#1188](https://github.com/angular/universal/issues/1188)) ([e688092](https://github.com/angular/universal/commit/e688092))
-- **hapi-engine:** fix broken unit test ([6ef8e47](https://github.com/angular/universal/commit/6ef8e47))
+### @nguniversal/common
 
-### Features
+| Commit                                                                                           | Type | Description                                   |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------- |
+| [c38b739a](https://github.com/angular/universal/commit/c38b739aa226a723680c02d991b98078ac5b7242) | fix  | correctly handle lazy loaded routes in Clover |
+| [03c8e6b2](https://github.com/angular/universal/commit/03c8e6b2431846a1d845921d8ccde550f3cd029e) | fix  | ensure CommonJS migrations can be accessed    |
 
-- **hapi-engine:** add ModuleMapLoaderModule to the app server imports during ng-add ([#1143](https://github.com/angular/universal/issues/1143)) ([81af213](https://github.com/angular/universal/commit/81af213))
+### @nguniversal/express-engine
 
-<a name="7.1.1"></a>
+| Commit                                                                                           | Type | Description                                   |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------- |
+| [ce08aafd](https://github.com/angular/universal/commit/ce08aafdbbe90993ab432415fe56617f39c1674b) | fix  | initialNavigation should be 'enabledBlocking' |
 
-## [7.1.1](https://github.com/angular/universal/compare/v7.1.0...v7.1.1) (2019-03-07)
+## Special Thanks
 
-### Features
+Adam Plumer, Alan Agius, Doug Parker and Mike Huang
 
-- **express-engine:** add ModuleMapLoaderModule to the app server imports during ng-add ([#1130](https://github.com/angular/universal/issues/1130)) ([e776dfc](https://github.com/angular/universal/commit/e776dfc))
+<!-- CHANGELOG SPLIT MARKER -->
 
-<a name="7.1.0"></a>
+<a name="13.0.2"></a>
 
-# [7.1.0](https://github.com/angular/universal/compare/v7.0.2...v7.1.0) (2019-01-19)
+# 13.0.2 (2022-01-18)
 
-### Bug Fixes
+### @nguniversal/common
 
-- **common:** check if DOMContentLoaded already fired ([#1104](https://github.com/angular/universal/issues/1104)) ([0e38dd1](https://github.com/angular/universal/commit/0e38dd1))
-- **common:** check if readyState is interactive not loaded ([#1109](https://github.com/angular/universal/issues/1109)) ([e80b2f1](https://github.com/angular/universal/commit/e80b2f1))
-- **express-engine:** remove unneeded dep from schematics server ([#1090](https://github.com/angular/universal/issues/1090)) ([cfa3909](https://github.com/angular/universal/commit/cfa3909))
-- **readme:** use circle ci build badge, update img url, add socketengine ([#1111](https://github.com/angular/universal/issues/1111)) ([abcfbfb](https://github.com/angular/universal/commit/abcfbfb))
+| Commit                                                                                           | Type | Description                                |
+| ------------------------------------------------------------------------------------------------ | ---- | ------------------------------------------ |
+| [4f682fbd](https://github.com/angular/universal/commit/4f682fbd41657297ea1f69152f48f525678e4aab) | fix  | ensure CommonJS migrations can be accessed |
 
-### Features
+## Special Thanks
 
-- **hapi-engine:** add schematics ([#1057](https://github.com/angular/universal/issues/1057)) ([a4bf3d9](https://github.com/angular/universal/commit/a4bf3d9))
-- **modules:** pass in absolute URL as default for view rendering ([#897](https://github.com/angular/universal/issues/897)) ([77e298a](https://github.com/angular/universal/commit/77e298a))
+Adam Plumer, Alan Agius and Doug Parker
 
-<a name="7.0.2"></a>
+<!-- CHANGELOG SPLIT MARKER -->
 
-## [7.0.2](https://github.com/angular/universal/compare/v7.0.0...v7.0.2) (2018-10-18)
+<a name="13.0.1"></a>
 
-<a name="7.0.0"></a>
+# 13.0.1 (2021-11-11)
 
-# [7.0.0](https://github.com/angular/universal/compare/v7.0.0-rc.1...v7.0.0) (2018-10-18)
+### @nguniversal/common
 
-<a name="7.0.0-rc.1"></a>
+| Commit                                                                                           | Type | Description                                   |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------- |
+| [71516ece](https://github.com/angular/universal/commit/71516ece7163ec88eedb58767093d50a76aa9f57) | fix  | correctly handle lazy loaded routes in Clover |
 
-# [7.0.0-rc.1](https://github.com/angular/universal/compare/v7.0.0-rc.0...v7.0.0-rc.1) (2018-10-12)
+### @nguniversal/express-engine
 
-### Bug Fixes
+| Commit                                                                                           | Type | Description                                   |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------- |
+| [fee929e2](https://github.com/angular/universal/commit/fee929e2a2e499404f4a5abc1b78ef0a6112a0da) | fix  | initialNavigation should be 'enabledBlocking' |
 
-- **express-engine:** modify dist directories to provide consistent access ([#1082](https://github.com/angular/universal/issues/1082)) ([4dc0482](https://github.com/angular/universal/commit/4dc0482))
+## Special Thanks
 
-<a name="7.0.0-rc.0"></a>
+Alan Agius, Doug Parker and Mike Huang
 
-# [7.0.0-rc.0](https://github.com/angular/universal/compare/v6.1.0...v7.0.0-rc.0) (2018-10-11)
+<a name="13.1.0-next.0"></a>
 
-### Bug Fixes
+# 13.1.0-next-0 (2021-11-03)
 
-- **express-engine:** add webpack option to schematics ([#1081](https://github.com/angular/universal/issues/1081)) ([0922de7](https://github.com/angular/universal/commit/0922de7)), closes [#1080](https://github.com/angular/universal/issues/1080)
+No changes since 13.0.0.
 
-### Features
+<a name="13.0.0"></a>
 
-- **express-engine:** add option to skip Universal schematic ([#1059](https://github.com/angular/universal/issues/1059)) ([9ebb943](https://github.com/angular/universal/commit/9ebb943))
-- **socket-engine:** add providers parameter ([#1072](https://github.com/angular/universal/issues/1072)) ([c16860c](https://github.com/angular/universal/commit/c16860c))
+# 13.0.0 (2021-11-03)
 
-<a name="6.1.0"></a>
+### @nguniversal/common
 
-# [6.1.0](https://github.com/angular/universal/compare/v6.0.0...v6.1.0) (2018-08-23)
+| Commit                                                                                           | Type | Description                                              |
+| ------------------------------------------------------------------------------------------------ | ---- | -------------------------------------------------------- |
+| [838e478e](https://github.com/angular/universal/commit/838e478e5421b918cd51f7bfbb7ba51be1cb7604) | feat | officially support Node.js v16                           |
+| [b94bcd11](https://github.com/angular/universal/commit/b94bcd118eb489abf9822ed49c1a725e8b1c8fb8) | fix  | inlineCriticalCssProcessor `outputPath` fallback to `''` |
 
-### Bug Fixes
+## Special Thanks
 
-- **common:** fixup secondary entrypoints ([#1017](https://github.com/angular/universal/issues/1017)) ([7bb0e9b](https://github.com/angular/universal/commit/7bb0e9b))
-- **common:** remove internal monicker for FileLoader ([#1009](https://github.com/angular/universal/issues/1009)) ([23f0d0f](https://github.com/angular/universal/commit/23f0d0f))
-- **express-engine:** add server configuration to schematics ([#1056](https://github.com/angular/universal/issues/1056)) ([b031a26](https://github.com/angular/universal/commit/b031a26))
+Alan Agius, Doug Parker, Douglas Parker, HyperLifelll9, Keen Yee Liau and ikeq
 
-### Features
+<a name="12.1.3"></a>
 
-- **common:** add CommonEngine to encapsulate rendering ([#996](https://github.com/angular/universal/issues/996)) ([439b306](https://github.com/angular/universal/commit/439b306))
-- **common:** TransferHttpCache now respects url params ([#1005](https://github.com/angular/universal/issues/1005)) ([f09c51d](https://github.com/angular/universal/commit/f09c51d))
-- **express-engine:** add schematics ([#1051](https://github.com/angular/universal/issues/1051)) ([1909be1](https://github.com/angular/universal/commit/1909be1)), closes [#968](https://github.com/angular/universal/issues/968)
-- **hapi:** upgrade to Hapi v17 ([#1015](https://github.com/angular/universal/issues/1015)) ([311b9fe](https://github.com/angular/universal/commit/311b9fe))
-- **socket-engine:** introduce package ([#999](https://github.com/angular/universal/issues/999)) ([de33b02](https://github.com/angular/universal/commit/de33b02))
+# 12.1.3 (2021-10-27)
 
-### BREAKING CHANGES
+### @nguniversal/common
 
-- **hapi:** \* The `ngHapiEngine` is no longer supported for Hapi v16. The `RESPONSE` token provided under `@nguniversal/hapi-engine/tokens` now uses the new `ResponseToolkit`, which is unavailable in Hapi v16. Updated instructions are available in the package's README
+| Commit                                                                                           | Type | Description                           |
+| ------------------------------------------------------------------------------------------------ | ---- | ------------------------------------- |
+| [6819d0c3](https://github.com/angular/universal/commit/6819d0c32f755db80a1d34d15473cf47daf32bcf) | fix  | update `critters` to version `0.0.12` |
 
-<a name="6.0.0"></a>
+### @nguniversal/builders
 
-# [6.0.0](https://github.com/angular/universal/compare/v6.0.0-rc.1...v6.0.0) (2018-05-03)
+| Commit                                                                                           | Type | Description                       |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------- |
+| [7adc8f9a](https://github.com/angular/universal/commit/7adc8f9a96e02eda415c3205012e06c0728b7651) | fix  | correctly handle multiple proxies |
 
-<a name="6.0.0-rc.2"></a>
+### @nguniversal/express-engine
 
-# [6.0.0-rc.2](https://github.com/angular/universal/compare/v6.0.0-rc.1...v6.0.0-rc.2) (2018-04-24)
+| Commit                                                                                           | Type | Description                                                           |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------------------------------------- |
+| [cfe47ff0](https://github.com/angular/universal/commit/cfe47ff02e702a1758ea0d9ff170f815db929e1b) | fix  | update schematic to be `noPropertyAccessFromIndexSignature` compliant |
 
-<a name="6.0.0-rc.1"></a>
+## Special Thanks
 
-# [6.0.0-rc.1](https://github.com/angular/universal/compare/v6.0.0-rc.0...v6.0.0-rc.1) (2018-04-24)
+Alan Agius and Doug Parker
 
-<a name="6.0.0-rc.0"></a>
+<a name="12.1.2"></a>
 
-# [6.0.0-rc.0](https://github.com/angular/universal/compare/v5.0.0...v6.0.0-rc.0) (2018-04-24)
+# 12.1.2 (2021-10-21)
 
-### Features
+Update critters to version 0.0.11
 
-- **common:** enable StateTransferInitializerModule ([#948](https://github.com/angular/universal/issues/948)) ([6ff2844](https://github.com/angular/universal/commit/6ff2844))
+## Special Thanks
 
-<a name="6.0.0-rc.0"></a>
+Alan Agius and Doug Parker
 
-# [6.0.0-rc.0](https://github.com/angular/universal/compare/v5.0.0...v6.0.0-rc.0) (2018-04-24)
+<a name="12.1.1"></a>
 
-### Features
+# 12.1.1 (2021-09-30)
 
-- **common:** enable StateTransferInitializerModule ([#948](https://github.com/angular/universal/issues/948)) ([6ff2844](https://github.com/angular/universal/commit/6ff2844))
+### @nguniversal/builders
 
-<a name="5.0.0"></a>
+| Commit                                                                                           | Type | Description                                  |
+| ------------------------------------------------------------------------------------------------ | ---- | -------------------------------------------- |
+| [00cc596f](https://github.com/angular/universal/commit/00cc596fe83fb4f4206b00e6a21975862dfd60e5) | fix  | index.original.html should be used if exists |
 
-# [5.0.0](https://github.com/angular/universal/compare/5.0.0-beta.8...5.0.0) (2018-04-02)
+## Special Thanks
 
-<a name="5.0.0-beta.8"></a>
+Doug Parker, Javier Infante and ikeq
 
-# 5.0.0-beta.8 (2018-03-23)
+<!-- CHANGELOG SPLIT MARKER -->
 
-### build
+<a name="12.1.0"></a>
 
-- fix secondary entrypoints and bundle with APF v5 ([#940](https://github.com/angular/universal/issues/940)) ([ce1baff](https://github.com/angular/universal/commit/ce1baff))
+# 12.1.0 (2021-06-26)
 
-<a name="5.0.0-beta.7"></a>
+### @nguniversal/common
 
-# 5.0.0-beta.7 (2018-03-21)
+| Commit                                                                                           | Type | Description                         |
+| ------------------------------------------------------------------------------------------------ | ---- | ----------------------------------- |
+| [ecf9db17](https://github.com/angular/universal/commit/ecf9db17ca12e723d3e670ddc81a39c320d44cca) | fix  | correctly construct host string     |
+| [635d61ec](https://github.com/angular/universal/commit/635d61ec944d276551a9081422f819fc32f9ca88) | fix  | add Window stubs to Engine (Clover) |
 
-### build
+### @nguniversal/builders
 
-- re-introduce build.sh ([#930](https://github.com/angular/universal/issues/930)) ([7704d56](https://github.com/angular/universal/commit/7704d56))
+| Commit                                                                                           | Type | Description                                |
+| ------------------------------------------------------------------------------------------------ | ---- | ------------------------------------------ |
+| [89821991](https://github.com/angular/universal/commit/89821991bd16923f251534744c7dfb3ebd3e40e7) | feat | spawn static server for build artifacts    |
+| [b03a7789](https://github.com/angular/universal/commit/b03a7789b7326d123c13e4b9b465c52a186faf9c) | fix  | make prerender work with large route lists |
 
-### Features
+### @nguniversal/express-engine
 
-- **common:** introduce StateTransferInitializerModule ([#916](https://github.com/angular/universal/issues/916)) ([5aef476](https://github.com/angular/universal/commit/5aef476))
+| Commit                                                                                           | Type | Description                             |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------------------- |
+| [a11df5a2](https://github.com/angular/universal/commit/a11df5a296cc86fb3b059ba96839e89631261ce5) | fix  | remove in-existing migrations reference |
+| [ccc0fc1b](https://github.com/angular/universal/commit/ccc0fc1b07a37e81d6ece27390d0d423bc8f8694) | fix  | add `serverTarget` for prerender        |
 
-<a name="5.0.0-beta.6"></a>
+## Special Thanks:
 
-# 5.0.0-beta.6 (2018-02-28)
-
-### Bug Fixes
-
-- **express-engine:** node 9 strict engine error ([853](https://github.com/angular/universal/pull/853)) ([e4a9775](https://github.com/angular/universal/commit/e4a97754e62d5418faad3837a88a21b710aa3d8d)), closes [851](https://github.com/angular/universal/issues/851)
-- **aspnetcore-engine:** fix ServerTransferStateModule and TransferState ([889](https://github.com/angular/universal/pull/889)) ([14c7616](https://github.com/angular/universal/commit/14c76166ac36c2de619c733531432fd109e4bb67))
-
-**BREAKING CHANGE**:
-
-The tokens for `express-engine` and `hapi-engine` are now imported at top-level. Do the following:
-
-```ts
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine';
-```
-
-instead of
-
-```ts
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
-```
-
-Note: there is a slight bundling/tree-shaking issue with this new structure which should be resolved in the next release. The current workaround is to temporarily downgrade to the previous version.
-
-### Features
-
-- **engines:** add optional url and document to render options ([#810](https://github.com/angular/universal/pull/810)) ([90b445b](https://github.com/angular/universal/commit/90b445b2b317e58003b9d6d51835139efb542422))
-- **build:** add unit testing with karma ([891](https://github.com/angular/universal/pull/891)) ([a4d9f14b](https://github.com/angular/universal/commit/a4d9f14b39bbed2e5c7fec24dede0a89b9f97ae0))
-
-<a name="5.0.0-beta.5"></a>
-
-# 5.0.0-beta.5 (2017-10-31)
+Alan Agius, Alex Sierkov, Aristeidis Bampakos, Doug Parker, Keen Yee Liau, Suguru Inatomi and hxrxchang

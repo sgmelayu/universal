@@ -15,9 +15,6 @@ test:debug --test_arg=--node_options=--inspect-brk --test_output=streamed --test
 # `bazel info output_base` to find out where the outputs went.
 build --symlink_prefix=dist/
 
-# Performance: avoid stat'ing input files
-build --watchfs
-
 # Turn off legacy external runfiles
 build --nolegacy_external_runfiles
 run --nolegacy_external_runfiles
@@ -45,10 +42,11 @@ test
 # Run with "--config=release"   #
 #################################
 
-# Configures script to do version stamping.
-# See https://docs.bazel.build/versions/master/user-manual.html#flag--workspace_status_command
-build:release --workspace_status_command="node ./tools/bazel-stamp-vars.js" --stamp
-run:release --workspace_status_command="node ./tools/bazel-stamp-vars.js" --stamp
+# Releases should always be stamped with version control info
+# This command assumes node on the path and is a workaround for
+# https://github.com/bazelbuild/bazel/issues/4802
+build:release --workspace_status_command="yarn -s ng-dev release build-env-stamp --mode=release"
+build:release --stamp
 
 ###############################
 # Typescript / Angular / Sass #
@@ -63,9 +61,7 @@ build --strategy=AngularTemplateCompile=worker
 # Temporary Settings for Ivy   #
 ################################
 
-# Use the legacy AOT compiler strategy. We don't want to compile with Ivy nor with "ngtsc" which
-# does not generate factory files which are needed for AOT.
-build --define=compile=legacy
+build --define=angular_ivy_enabled=True
 
 ###############################
 # NodeJS rules settings

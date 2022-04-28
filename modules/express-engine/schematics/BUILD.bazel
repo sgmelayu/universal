@@ -1,4 +1,4 @@
-load("//tools:defaults.bzl", "jasmine_node_test", "ng_test_library", "pkg_npm", "ts_library")
+load("//tools:defaults.bzl", "jasmine_node_test", "pkg_npm", "ts_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -14,6 +14,7 @@ filegroup(
 
 ts_library(
     name = "schematics",
+    package_name = "@nguniversal/express-engine/schematics",
     srcs = glob(
         ["**/*.ts"],
         exclude = [
@@ -22,7 +23,6 @@ ts_library(
             "**/files/**/*",
         ],
     ),
-    module_name = "@nguniversal/express-engine/schematics",
     tsconfig = ":tsconfig.json",
     deps = [
         "@npm//@angular-devkit/core",
@@ -36,7 +36,22 @@ ts_library(
 # This package is intended to be combined into the main @nguniversal/express-engine package as a dep.
 pkg_npm(
     name = "npm_package",
+    # We never set a `package_name` for NPM packages, neither do we enable validation.
+    # This is necessary because the source targets of the NPM packages all have
+    # package names set and setting a similar `package_name` on the NPM package would
+    # result in duplicate linker mappings that will conflict. e.g. consider the following
+    # scenario: We have a `ts_library` for `@angular/core`. We will configure a package
+    # name for the target so that it can be resolved in NodeJS executions from `node_modules`.
+    # If we'd also set a `package_name` for the associated `pkg_npm` target, there would be
+    # two mappings for `@angular/core` and the linker will complain. For a better development
+    # experience, we want the mapping to resolve to the direct outputs of the `ts_library`
+    # instead of requiring tests and other targets to assemble the NPM package first.
+    # TODO(alan-agius4): consider removing this if `rules_nodejs` allows for duplicate
+    # linker mappings where transitive-determined mappings are skipped on conflicts.
+    # https://github.com/bazelbuild/rules_nodejs/issues/2810.
+    package_name = None,
     srcs = [":schematics_assets"],
+    validate = False,
     deps = [":schematics"],
 )
 
@@ -50,8 +65,9 @@ jasmine_node_test(
     ],
 )
 
-ng_test_library(
+ts_library(
     name = "schematics_test_sources",
+    testonly = True,
     srcs = glob(
         [
             "testing/*.ts",
@@ -59,7 +75,6 @@ ng_test_library(
         ],
         exclude = ["**/files/**/*"],
     ),
-    tsconfig = ":tsconfig.json",
     deps = [
         ":schematics",
         "@npm//@angular-devkit/core",

@@ -16,17 +16,17 @@ import { BrowserBuilderOptions, BrowserBuilderOutput } from '@angular-devkit/bui
 import { normalizeOptimization } from '@angular-devkit/build-angular/src/utils/normalize-optimization';
 import { augmentAppWithServiceWorker } from '@angular-devkit/build-angular/src/utils/service-worker';
 import { normalize, resolve } from '@angular-devkit/core';
-import * as express from 'express';
+import express from 'express';
 import * as http from 'http';
-import { Worker as JestWorker } from 'jest-worker';
-import * as ora from 'ora';
+import ora from 'ora';
 import { cpus } from 'os';
 import * as path from 'path';
+import Piscina from 'piscina';
 import { promisify } from 'util';
 import { getAvailablePort } from '../ssr-dev-server/utils';
 import { Schema as PrerenderBuilderOptions } from './schema';
 import { getRoutes } from './utils';
-import { WorkerSetupArgs } from './worker';
+import { RenderOptions } from './worker';
 
 /**
  * Builds the browser and server, then renders each route in options.routes
@@ -57,7 +57,11 @@ export async function execute(
     return { success, error } as BuilderOutput;
   }
 
-  const worker = createWorker(browserOptions);
+  const { styles: normalizedStylesOptimization } = normalizeOptimization(
+    browserOptions.optimization,
+  );
+
+  const worker = createWorker();
   try {
     for (const outputPath of outputPaths) {
       const spinner = ora(`Prerendering ${routes.length} route(s) to ${outputPath}...`).start();
@@ -65,13 +69,16 @@ export async function execute(
       const staticServer = await createStaticServer(outputPath);
       try {
         await Promise.all(
-          routes.map((route) =>
-            (worker as any).render({
+          routes.map((route) => {
+            const options: RenderOptions = {
+              inlineCriticalCss: normalizedStylesOptimization.inlineCritical,
               outputPath,
               route,
               port: staticServer.port,
-            }),
-          ),
+            };
+
+            return worker.run(options, { name: 'render' });
+          }),
         );
 
         spinner.succeed(`Prerendering routes to ${outputPath} complete.`);
@@ -93,9 +100,7 @@ export async function execute(
 
     return { success: true };
   } finally {
-    // const _ = is a workaround to disable tsetse must use promises rule.
-    // tslint:disable-next-line: no-floating-promises
-    const _ = worker.end();
+    void worker.destroy();
   }
 }
 
@@ -115,26 +120,14 @@ async function createStaticServer(browserOutputRoot: string): Promise<{
   };
 }
 
-function createWorker(browserOptions: BrowserBuilderOptions): JestWorker {
-  const { styles: normalizedStylesOptimization } = normalizeOptimization(
-    browserOptions.optimization,
-  );
+function createWorker(): Piscina {
+  const maxThreads = Math.max(Math.min(cpus().length, 6) - 1, 1);
 
-  const setupArgs: WorkerSetupArgs = {
-    inlineCriticalCss: normalizedStylesOptimization.inlineCritical,
-  };
-
-  const maxWorkers = Math.max(Math.min(cpus().length, 6) - 1, 1);
-
-  const worker = new JestWorker(path.join(__dirname, 'worker.js'), {
-    exposedMethods: ['render'],
-    enableWorkerThreads: true,
-    numWorkers: maxWorkers,
-    setupArgs: [setupArgs],
+  const worker = new Piscina({
+    filename: path.join(__dirname, 'worker.js'),
+    name: 'render',
+    maxThreads,
   });
-
-  worker.getStdout().pipe(process.stdout);
-  worker.getStderr().pipe(process.stderr);
 
   return worker;
 }
@@ -157,7 +150,6 @@ async function generateServiceWorker(
     const projectRoot = resolve(root, normalize((projectMetadata.root as string) ?? ''));
 
     await augmentAppWithServiceWorker(
-      root,
       projectRoot,
       normalize(outputPath),
       browserOptions.baseHref || '/',

@@ -6,31 +6,30 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Engine } from '@nguniversal/common/clover/server';
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import { loadEsmModule } from '../utils/utils';
 
-export interface WorkerSetupArgs {
+export interface RenderOptions {
   inlineCriticalCss?: boolean;
-}
-
-let engine: Engine;
-let sharedOptions: WorkerSetupArgs;
-
-export function setup(options: WorkerSetupArgs): void {
-  engine = new Engine();
-  sharedOptions = options;
-}
-
-export async function render(options: {
   outputPath: string;
   route: string;
   port: number;
-}): Promise<void> {
-  const { outputPath, route, port } = options;
-  const html = await engine.render({
+}
+
+export async function render({
+  inlineCriticalCss,
+  outputPath,
+  route,
+  port,
+}: RenderOptions): Promise<void> {
+  const { Engine } = await loadEsmModule<typeof import('@nguniversal/common/clover/server')>(
+    '@nguniversal/common/clover/server',
+  );
+
+  const html = await new Engine().render({
     publicPath: outputPath,
-    inlineCriticalCss: sharedOptions.inlineCriticalCss,
+    inlineCriticalCss: inlineCriticalCss,
     url: `http://localhost:${port}/${route}`,
   });
 

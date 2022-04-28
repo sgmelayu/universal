@@ -14,7 +14,6 @@ import {
 } from '@angular-devkit/architect';
 import { json, logging, tags } from '@angular-devkit/core';
 import * as browserSync from 'browser-sync';
-import { existsSync } from 'fs';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { join, resolve as pathResolve } from 'path';
 import { EMPTY, Observable, combineLatest, from, of, zip } from 'rxjs';
@@ -118,6 +117,10 @@ export function execute(
             ? waitUntilServerIsListening(nodeServerPort)
             : EMPTY,
         ),
+        finalize(() => {
+          void br.stop();
+          void sr.stop();
+        }),
       );
     }),
     concatMap(([builderOutput, nodeServerPort]) => {
@@ -267,6 +270,7 @@ async function initBrowserSync(
     // ex: http://testinghost.com/ssr -> http://localhost:4200 which will result in a 404.
     if (hasPathname) {
       // Remove leading slash
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       (bsOptions.scriptPath = (p) => p.substring(1)),
         (bsOptions.middleware = [
           createProxyMiddleware(defaultSocketIoPath, {
@@ -348,19 +352,26 @@ function getProxyConfig(root: string, proxyConfig: string): browserSync.Middlewa
   }
 
   const proxies = Array.isArray(proxySettings) ? proxySettings : [proxySettings];
+  const createdProxies = [];
 
-  return proxies.map((proxy) => {
-    const keys = Object.keys(proxy);
-    const context = keys[0];
-
-    if (keys.length === 1 || typeof context === 'string') {
-      const normalizedContext = context.replace(/^\*$/, '**').replace(/\/\*$/, '');
-
-      return createProxyMiddleware(normalizedContext, proxy[context]) as any;
+  for (const proxy of proxies) {
+    for (const [key, context] of Object.entries(proxy)) {
+      if (typeof key === 'string') {
+        createdProxies.push(
+          createProxyMiddleware(
+            key.replace(/^\*$/, '**').replace(/\/\*$/, ''),
+            context as any,
+          ) as browserSync.MiddlewareHandler,
+        );
+      } else {
+        createdProxies.push(
+          createProxyMiddleware(key, context as any) as browserSync.MiddlewareHandler,
+        );
+      }
     }
+  }
 
-    return createProxyMiddleware(proxy) as any;
-  });
+  return createdProxies;
 }
 
 export default createBuilder<SSRDevServerBuilderOptions, BuilderOutput>(execute);

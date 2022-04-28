@@ -26,15 +26,21 @@ export class CustomResourceLoader extends ResourceLoader {
 
     const path = normalize(url.replace(this.baseUrl, this.publicPath));
     if (this.fileCache.has(path)) {
-      // tslint:disable-next-line: no-non-null-assertion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const filePromise = Promise.resolve(this.fileCache.get(path)!) as AbortablePromise<Buffer>;
       filePromise.abort = () => undefined;
 
       return filePromise;
     }
 
-    const promise = promises.readFile(path).then((content) => {
-      this.fileCache.set(path, content);
+    const promise = promises.readFile(path, 'utf-8').then((content) => {
+      if (path.includes('runtime.')) {
+        // JSDOM doesn't support type=module, which will be added to lazy loaded scripts.
+        // https://github.com/jsdom/jsdom/issues/2475
+        content = content.replace(/\.type\s?=\s?['"]module["']/, '');
+      }
+
+      this.fileCache.set(path, Buffer.from(content));
 
       return content;
     }) as AbortablePromise<Buffer>;

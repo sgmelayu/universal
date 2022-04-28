@@ -1,4 +1,4 @@
-import { CommitMessageConfig } from '@angular/dev-infra-private/commit-message/config';
+import { CommitMessageConfig } from '@angular/dev-infra-private/ng-dev/commit-message/config';
 import { release } from './release';
 
 /**
@@ -8,5 +8,5 @@ export const commitMessage: CommitMessageConfig = {
   maxLineLength: Infinity,
   minBodyLength: 0,
   minBodyLengthTypeExcludes: ['docs'],
-  scopes: release.npmPackages,
+  scopes: release.npmPackages.map(({ name }) => name),
 };

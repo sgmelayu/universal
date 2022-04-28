@@ -61,10 +61,14 @@ export class Engine {
     if (inlineCriticalCss) {
       // Workaround for https://github.com/GoogleChromeLabs/critters/issues/64
       htmlContent = htmlContent.replace(
-        / media=\"print\" onload=\"this\.media='all'"><noscript><link .+?><\/noscript>/g,
+        / media="print" onload="this\.media='all'"><noscript><link .+?><\/noscript>/g,
         '>',
       );
     }
+
+    // JSDOM doesn't support type=module
+    // https://github.com/jsdom/jsdom/issues/2475
+    htmlContent = htmlContent.replace(/ type="module"/g, '');
 
     try {
       dom = new JSDOM(htmlContent, {
@@ -86,7 +90,6 @@ export class Engine {
         throw new Error('Angular application failed to stablize after in time.');
       }, 60000);
 
-      // tslint:disable-next-line: no-shadowed-variable
       const ngRenderMode = await new Promise<NGRenderModeAPI>((resolve) => {
         const interval = setInterval(() => {
           const ngDOMMode = dom?.window.ngRenderMode as NGRenderMode;
@@ -126,9 +129,9 @@ export class Engine {
         outputPath: path.join(options.publicPath, baseHref),
       });
 
-      // tslint:disable-next-line: no-console
+      // eslint-disable-next-line no-console
       warnings?.forEach((m) => console.warn(m));
-      // tslint:disable-next-line: no-console
+      // eslint-disable-next-line no-console
       errors?.forEach((m) => console.error(m));
 
       return contentWithInlineCSS;

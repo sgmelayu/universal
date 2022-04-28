@@ -7,5 +7,3 @@
  */
 
 export { CommonEngine, RenderOptions } from './src/engine';
-
-export { InlineCriticalCssProcessor as ɵInlineCriticalCssProcessor } from './src/inline-css-processor';

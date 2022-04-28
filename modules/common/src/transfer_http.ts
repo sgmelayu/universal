@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 import {
   HTTP_INTERCEPTORS,
   HttpEvent,
@@ -55,7 +56,11 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
     );
   }
 
-  private makeCacheKey(method: string, url: string, params: HttpParams): StateKey<string> {
+  private makeCacheKey(
+    method: string,
+    url: string,
+    params: HttpParams,
+  ): StateKey<TransferHttpResponse> {
     // make the params encoded same as a url so it's easy to identify
     const encodedParams = params
       .keys()
@@ -70,14 +75,12 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
   constructor(appRef: ApplicationRef, private transferState: TransferState) {
     // Stop using the cache if the application has stabilized, indicating initial rendering is
     // complete.
-    // tslint:disable-next-line: no-floating-promises
     appRef.isStable
       .pipe(
         filter((isStable: boolean) => isStable),
         take(1),
       )
-      .toPromise()
-      .then(() => {
+      .subscribe(() => {
         this.isCacheActive = false;
       });
   }
@@ -98,7 +101,7 @@ export class TransferHttpCacheInterceptor implements HttpInterceptor {
 
     if (this.transferState.hasKey(storeKey)) {
       // Request found in cache. Respond using it.
-      const response = this.transferState.get<TransferHttpResponse>(storeKey, {});
+      const response = this.transferState.get(storeKey, {});
 
       return observableOf(
         new HttpResponse<any>({
