@@ -18,7 +18,7 @@
     "@hapi/hapi": "HAPI_VERSION"
   },
   "dependencies": {
-    "@nguniversal/common": "0.0.0-PLACEHOLDER",
+    "@nguniversal/common": "0.0.0",
     "tslib": "TSLIB_VERSION"
   },
   "repository": {
