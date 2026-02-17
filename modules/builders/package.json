@@ -30,8 +30,8 @@
   "dependencies": {
     "@angular-devkit/architect": "DEVKIT_ARCHITECT_VERSION",
     "@angular-devkit/core": "DEVKIT_CORE_VERSION",
-    "@nguniversal/common": "0.0.0-PLACEHOLDER",
-    "browser-sync": "^2.26.7",
+    "@nguniversal/common": "0.0.0",
+    "browser-sync": "^3.0.0",
     "express": "^4.17.1",
     "guess-parser": "^0.4.12",
     "http-proxy-middleware": "^2.0.0",
